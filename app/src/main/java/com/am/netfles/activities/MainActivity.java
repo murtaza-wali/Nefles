@@ -20,6 +20,7 @@ import com.am.netfles.databinding.ActivityMainBinding;
 import com.am.netfles.listeners.TvShowListener;
 import com.am.netfles.models.TvShows;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements TvShowListener {
         mainBinding.tvShowRv.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this).get(MostPopularTvShowsViewModel.class);
 
+        mainBinding.imgWatchlist.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, WatchListActivity.class)));
         tvShowAdapter = new TvShowAdapter(tvShowsList, this);
         mainBinding.tvShowRv.setAdapter(tvShowAdapter);
         mainBinding.tvShowRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -128,15 +130,10 @@ public class MainActivity extends AppCompatActivity implements TvShowListener {
     @Override
     public void onTvShowClicked(TvShows tvShows) {
         Intent intent = new Intent(getApplicationContext(), TvShowDetailsActivity.class);
-        intent.putExtra("id", tvShows.getId());
-        intent.putExtra("name", tvShows.getName());
-        intent.putExtra("startDate", tvShows.getStart_date());
-        intent.putExtra("country", tvShows.getCountry());
-        intent.putExtra("network", tvShows.getNetwork());
-        intent.putExtra("status", tvShows.getStatus());
+
+        intent.putExtra("tvShow", tvShows);
         startActivity(intent);
 
-        Log.e("ID", String.valueOf(tvShows.getId()));
 
     }
 }

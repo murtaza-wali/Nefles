@@ -1,9 +1,16 @@
 package com.am.netfles.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
-public class TvShows {
+import java.io.Serializable;
 
+@Entity(tableName = "tvShows")
+public class TvShows implements Serializable {
+
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 
